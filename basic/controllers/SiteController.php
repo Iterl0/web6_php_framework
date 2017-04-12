@@ -9,6 +9,7 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\Posts;
+use yii\web\ForbiddenHttpException;
 
 class SiteController extends Controller
 {
@@ -18,17 +19,17 @@ class SiteController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['logout'],
-                'rules' => [
-                    [
-                        'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
+//            'access' => [
+//                'class' => AccessControl::className(),
+//                'only' => ['logout'],
+//                'rules' => [
+//                    [
+//                        'actions' => ['logout'],
+//                        'allow' => true,
+//                        'roles' => ['@'],
+//                    ],
+//                ],
+//            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -127,6 +128,9 @@ class SiteController extends Controller
 
     public function actionPost()
     {
+        if (!\Yii::$app->user->can('post')) {
+            return $this->render('accessdenied');
+        }
         $model=\app\models\Posts::findOne(Yii::$app->request->get('id'));
 //        echo ('<pre>');
 //        var_dump($model->attributes);
@@ -137,5 +141,31 @@ class SiteController extends Controller
             'author' => $author,
         ]);
     }
+
+    public function actionPosts()
+    {
+        if (!\Yii::$app->user->can('posts')) {
+            return $this->render('accessdenied');
+        }
+        $model=\app\models\Posts::find()->all();
+        var_dump($model);
+        return $this->render('posts', [
+            'model' => $model
+        ]);
+
+    }
+
+//    public function beforeAction($action)
+//    {
+//        if (parent::beforeAction($action)) {
+////            if (!\Yii::$app->user->can($action->id)) {
+////                return $this->render('accessdenied');
+//////                throw new ForbiddenHttpException('Access denied');
+////            }
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
 
 }

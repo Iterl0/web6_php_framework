@@ -53,6 +53,10 @@ $config = [
             'languages' => ['ru', 'en'],
             'enableDefaultLanguageUrlCode' => true,
         ],
+        'authManager' => [
+            'class' => 'yii\rbac\PhpManager',
+            'defaultRoles' => ['admin', 'author', 'user'],
+        ],
     ],
     'params' => $params,
 

@@ -38,10 +38,11 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => Yii::t('common', 'Home'), 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
+            ['label' => Yii::t('common', 'About'), 'url' => ['/site/about']],
+            ['label' => Yii::t('common', 'Contact'), 'url' => ['/site/contact']],
+            Yii::$app->user->can('posts')? (['label' => 'Posts', 'url' => ['/site/posts']]):(''),
             Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
+                ['label' => Yii::t('common', 'Login'), 'url' => ['/site/login']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
@@ -68,7 +69,7 @@ AppAsset::register($this);
 <footer class="footer">
     <div class="container">
 <!--        <p class="pull-left">&copy; My Company --><?//= date('Y') ?><!-- |-->
-        <p class="pull-left">&copy; My Company <?= date('Y') ?> | <?= $this->render('main/select-language') ?></p>
+        <p class="pull-left">   &copy; My Company <?= date('Y') ?> | <?= $this->render('main/select-language') ?></p>
 <!--        <p class="pull-left">&copy; My Company --><?//= date('Y') ?><!--</p>-->
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
