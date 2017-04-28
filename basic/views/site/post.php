@@ -16,7 +16,13 @@ $this->params['breadcrumbs'][] = $this->title;
     <div><?= Html::encode($model->text) ?></div>
     <div class="row">
         <div class="col-md-2"><?= Html::encode($model->date) ?></div>
-        <div class="col-md-offset-7 col-md-3"><?= Html::encode($author->username) ?></div>
+        <div class="col-md-offset-7 col-md-3">
+            <?php
+              foreach($model->authors as $author) {
+                  echo $author->username . "<br>";
+              }
+            ?>
+        </div>
     </div>
 
 

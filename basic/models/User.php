@@ -2,6 +2,9 @@
 
 namespace app\models;
 
+
+use Yii;
+
 class User extends \yii\base\Object implements \yii\web\IdentityInterface
 {
     public $id;
@@ -9,6 +12,7 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
     public $password;
     public $authKey;
     public $accessToken;
+    public $group;
 
     private static $users = [
         '100' => [
@@ -17,6 +21,7 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
             'password' => 'admin',
             'authKey' => 'test100key',
             'accessToken' => '100-token',
+            'group' => 'admin'
         ],
         '101' => [
             'id' => '101',
@@ -24,6 +29,7 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
             'password' => 'demo',
             'authKey' => 'test101key',
             'accessToken' => '101-token',
+            'group' => 'user'
         ],
     ];
 
@@ -100,5 +106,10 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
     public function validatePassword($password)
     {
         return $this->password === $password;
+    }
+
+    public static function find()
+    {
+        return Yii::createObject(User::className(), [get_called_class()]);
     }
 }

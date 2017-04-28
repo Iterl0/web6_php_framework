@@ -50,4 +50,10 @@ class Posts extends \yii\db\ActiveRecord
             'author' => 'Author',
         ];
     }
+
+    public function getAuthors()
+    {
+        return $this->hasMany(User::className(), ['id' => 'post_id'])
+            ->viaTable('authors', ['user_id' => 'id']);
+    }
 }

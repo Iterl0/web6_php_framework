@@ -1,5 +1,6 @@
 <?php
 
+use app\components\HelloWidget;
 /* @var $this yii\web\View */
 
 $this->title = 'My Yii Application';
@@ -7,6 +8,14 @@ $this->title = 'My Yii Application';
 <div class="site-index">
 
     <div class="jumbotron">
+        <?= HelloWidget::widget(['message' => 'Good morning']) ?>
+
+
+<!--        --><?php //HelloWidget::begin(); ?>
+<!---->
+<!--        content that may contain <tag>'s-->
+<!---->
+<!--        --><?php //HelloWidget::end(); ?>
         <h1>Congratulations!</h1>
 
         <p class="lead">You have successfully created your Yii-powered application.</p>

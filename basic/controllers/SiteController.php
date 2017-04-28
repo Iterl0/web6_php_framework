@@ -135,10 +135,10 @@ class SiteController extends Controller
 //        echo ('<pre>');
 //        var_dump($model->attributes);
 //        exit;
-        $author = \app\models\User::findIdentity($model->author);
+//        $author = \app\models\User::findIdentity($model->author);
         return $this->render('post', [
             'model' => $model,
-            'author' => $author,
+//            'author' => $author,
         ]);
     }
 

@@ -34,13 +34,19 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
+
+    $post='';
+    if (!Yii::$app->user->isGuest and Yii::$app->user->can('posts')) {
+        $post=['label' => 'Posts', 'url' => ['/site/posts']];
+    }
+
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => Yii::t('common', 'Home'), 'url' => ['/site/index']],
             ['label' => Yii::t('common', 'About'), 'url' => ['/site/about']],
             ['label' => Yii::t('common', 'Contact'), 'url' => ['/site/contact']],
-            Yii::$app->user->can('posts')? (['label' => 'Posts', 'url' => ['/site/posts']]):(''),
+            $post,
             Yii::$app->user->isGuest ? (
                 ['label' => Yii::t('common', 'Login'), 'url' => ['/site/login']]
             ) : (

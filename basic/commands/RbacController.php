@@ -15,7 +15,7 @@ class RbacController extends Controller
         $guest  = $authManager->createRole('guest');
         $user  = $authManager->createRole('user');
         $author = $authManager->createRole('author');
-        gi$admin  = $authManager->createRole('admin');
+        $admin  = $authManager->createRole('admin');
 
         // Create simple, based on action{$NAME} permissions
         $login  = $authManager->createPermission('login');
@@ -52,11 +52,14 @@ class RbacController extends Controller
 
         // user
         $authManager->addChild($user, $guest);
-        $authManager->addChild($user, $post);
-        $authManager->addChild($user, $posts);
+        $authManager->addChild($author, $post);
+        $authManager->addChild($author, $posts);
         //author
         $authManager->addChild($author, $user);
         //admin
-        $authManager->addChild($admin, $admin);
+        $authManager->addChild($admin, $author);
+
+        $authManager->assign($user, 101);
+        $authManager->assign($admin, 100);
     }
 }
